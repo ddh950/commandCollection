@@ -1,0 +1,542 @@
+
+//VLAN
+
+show vlan brief
+
+interface range
+switchport mode access
+switchport access vlan10
+
+configgmode
+vlan 10 (createsvlan if not exist)
+config-vland mode
+name ...
+vlan20
+name...
+
+switch
+
+interface 
+switchport trunk encapsulation dot1q
+switchport mode trunk
+show interface trunk
+switchport trunk allowed vlan ?
+switchport trunk native vlan ..
+
+router 
+
+--------------
+fehlen : duplex speed show interfaces
+
+show mac address-table
+show ip interface brief
+
+interface config
+duplex full
+duplex half
+speed 100
+speed 1000
+----------------------------------------
+Switch to layer 3 switch
+default interface g0/0 //config back to default configs
+show interfaces status
+
+ip routing //to build der switch to layer 3switch with routing table
+no switchport //tomake it as a routingport(interface)
+--------------------------------------------
+show interfaces f0/0 switchport
+
+disable DTP
+switchport nonegotiate
+
+show VTP status
+vtp mode client
+vtp mode transparent
+vtp version 3
+vtp password pw
+
+----------
+STP
+
+show spanning-tree
+show spanning tree vlan
+show spanning-tree details
+show spanning-tree summary
+
+spanning-tree portfast //one interface
+spanning-tree portfast default // all access ports
+spanning-tree bpduguard enable // Interfacemode
+spanning-tree portfast bpduguard default // global config all portfast enabled interfaces
+spanning-tree mode ..
+spanning-tree vlan 1 root primaray //set the switch to the root bridge
+spanning-tree vlan 1 root secondary // if primary fails 
+-------------------------------
+
+Etherchannel
+
+show etherchannel load-balance
+
+loadblance ip or mac
+port-channel load-balance ...(src-dst-mac)
+
+interface range
+channel-group 1 mode (protocol) automatic protocol
+channel-protocol ...(LACP) or(PAgP)
+config etherchannel
+interface port-channel (virtualport)
+
+show etherchannel summary
+etherchannel port-channel
+
+-------------------------------------
+
+Dynamic Routing
+
+RIP Eigrp  Config
+router protocolname
+np auto-summary 
+passive-interface g2/0
+default-information originate
+maximum-paths ..
+distance 1-255
+variance number
+
+eigrp router-id 1.1.1.1
+
+show ip protocols
+interface loopback (number)
+show ip (eigrp..) neighbors
+show ip eigrp topology  
+
+
+
+router-id ..
+clear ip ospf process
+show ip ospf database
+show ip ospf neighbor
+show ip ospf interface
+show ip protocols
+
+ospf mode
+auto-cost reference-bandwidth mbsps
+passive-interface (interface)
+
+
+show ip ospf interface brief
+
+interfaceconfigmode
+ip ospf (processid) area (area)
+
+ip ospf cost (cost)
+ip ospf network (type)
+ip ospf hello(ordead)-interval (seconds)
+ip ospf authentication-key (password)
+bandwitdth (kilobitspersecond)(mbitspsjust to calculate it still use the original speed to send data)
+ip mtu ?
+
+passive-interface default
+
+Serial Interface
+
+---------------------------------
+FHRP
+
+//on vlan
+standby ip //enable
+standby version 2
+standby 1 priority
+standby 1 preempt
+standby 1 ip ..
+show standby
+ 
+---------------------
+ipv6
+
+ipv6 address address/64 eui-64
+ipv6 unicast-routing
+ipv6 enable /generate random ipv6
+
+ipv6 address address/64 anycast
+show interface (interface) //shows mac adress of interfaces
+show ipv6 neighbor 
+ipv6 address autoconfig //for SLAAC
+
+---------------------------
+
+ACL
+show access-lists (number)
+access-list (number) (deny/permit)
+access-list (number) remark #TEXT#
+
+acl standard named 
+ip access-list standard (acl-name)
+(entry number order) deny/permit ip wildacard
+
+on interface
+ip access-group 1 out
+
+----------------
+cdp & LLDP
+
+show cdp(lldp)
+show cdp(lldp) traffic
+show cdp(lldp) interface
+show cdp(lldp) neighbor
+show cdp(lldp) neighbor detail
+show cdp(lldp)  entry (hostname^^shortform)
+
+config mode 
+
+(no) cdp run
+
+one interface cfmode
+
+(no)cdp enable
+cdp holdtime (seconds)
+cdp timer (seconds)
+(no)cdp advertise-v2 //Version no for use version 1 default
+
+lldp
+
+(no)lldp run 
+
+(interface)
+lldp transmit 
+lldp receive
+
+lldp timer (seconds)
+lldp holtimer(seconds)
+lldp reinit (seconds)
+
+-----------------------
+
+Software/hardware time
+
+show clock
+show calendar
+clock set hh:mm:ss
+calendar set hh:mm:ss
+clock timezone (name)(Hours-OFfsett)(minutes-offsett)
+clock summer-time recurring (name) start end (offset)
+clock read-calendar // update softwareclock
+clock update-calendar
+
+
+NTP
+
+
+show ntp associations
+show ntp status
+  
+ntp server (ipadress) (prefer)(key number)
+ntp source(loopback or adress)
+ntp ?
+ntp master    
+ntp peer (address )(key number)
+
+ntp authenticate
+ntp authentication-key (keynumber) md5 (key)
+ntp trusted-key (keynumber)
+
+----------------------------
+DNS
+
+ip dns server //conf R1 to act as a dns server
+
+ip host R1 (ipaddress) 
+ip host PC1 (ipadress)// a list of hostname/IP address mappings
+
+ip name-server (ipadress) //conf a dns Server that r1 will query
+ip domain lookup //  enable r1 to perform DNS Queries
+
+ip domain name (name.com) 
+show hosts
+
+-------------------------------------
+DHCP
+
+ip dhcop excluded-address (low address - high address) //exclude ip range of dhcp
+ip dhcp pool pool-name
+
+//dhcp configmode //config of alldhcp
+network (ipaddress/prefix | public mask)
+dns-server (ipadress)
+domain-name (domain name)
+default-router (ipadress) //defaultgateway
+lease (days hours minutes | infinite)
+
+ip helper-address (dhcp relay agent)
+ip adress dhcp //dhcp client
+
+show ip dhcp binding
+
+--------------------
+SNMP
+snmp-server contact (email)
+snm-server location (description)
+
+snmp-server community jeremy1 ro // read only 
+	//configure Snmp cummity strings(passwords) defaults are ro= public rw= private
+snmp-server community jeremy1 rw // read and write can use set messages
+
+
+snmp-server host (ip of the nms) version 2c (communitystring)
+//configure traps to send to the nms
+
+snmp-server enable traps snmp linkdown linkup
+snmpt-server enable traps config
+
+------------------------------------------
+syslog
+
+show logging
+terminal monitor // vty command for telnet and SSH connection must be use
+line console 0
+logging synchronous
+
+logging console 6 // displayed logs in the console lvl 0-6 for example
+logging monitor informational /7 logging displayed vty-lines for telnet and SSH
+logging buffered 8192 6 // conf the buffer its saved syslogs and the lvl 0-6 for example
+
+logging (ip address)
+logging host (ip address) // same command for external syslog server
+
+logging trap (levelnumber or name-> debugging)// configure levels of messages send to exxternal server 
+
+service timestamps log (datetime or uptime)
+service sequence numbers // for timestamp and sequencenumber ind syslog messages
+
+--------------------------------------------
+Telnet
+
+//security console line
+//config console line - there is only a single console line so its always 0
+line console 0
+password (password)
+login
+//config user and password for console line
+username (username) secret (password)
+line console 0
+login local
+exec-timeout 3 30 //time to logout
+
+//layer2 conect use a svi interface
+interface vlan1
+ip address (ip netmask)
+no shutdown
+ip default-gateway (ip)  //for forwarding packets in other LANs
+
+//Telnet best case
+
+//configure cli password and a user before
+//password to privilege execmode must be set 
+
+access-list (number) permit host (ip)
+line vty 0 15 //16 lines for maximum 16 user at the same time
+login local
+exec-timeout 5 0
+transport input (telnet usw.)
+access-class 1 in //to applie ac list
+-----------------------------
+//SSH
+
+show version
+show ip ssh
+show ssh
+
+//config mode
+ip default-gateway (ipaddress)
+line con 0
+line vty 0 15
+crypto key generate rsa
+ip ssh version 2
+login (local)
+transport input (protocols)
+exec-timeout (minutes seconds)
+ip ssh time-out (seconds)
+access-class (acl) in
+
+- configure hostname
+- configure dns domain name
+- generate RSA key pair
+- configure enable pw, username/pw
+- enable SSHv2(only)
+- configure vty lines
+
+
+------------------------------------------
+FTP TFTP
+
+show file systems
+show version
+show flash
+copy (source) (destination)
+reload
+
+//config mode
+boot system filepath
+ip ftp username (username) //config for a ftp server connection
+ip ftp password (password)
+
+------------------------------
+NAT
+
+//static 
+
+show ip nat translations
+show ip nat statistics
+
+clear ip nat translation * //delete all dynamic nats and global 
+
+ip nat inside //on inside interface
+ip nat outside //on outside interface
+ip nat inside source static (inside local ip) (inside global ip)
+
+
+//dynamic 
+
+ip nat pool (pool-name)(startip)(endip) prefix-lenght prefix-length
+ip nat pool (pool-name)(startip)(endip) netmask (subnetmask)
+ip nat inside source list (access-list) pool (pool-name)
+
+//PAT
+ip nat inside source list (access-list) pool (pool-name) overload 
+
+ip nat inside source list (access-list) interface (interface) overload
+-------------------------------
+
+//POE
+
+power inline police 
+
+//or power inline police action err-disbale
+// will be put in a error-disabled state can be re-enabled with shutdown
+// and folowe by no shutdown
+
+power inline police action log // no shutdown of the interface 
+//restarts the interface and send a syslog message
+
+show power inline police (interface)
+
+//IP Phones - Voice VLAN
+
+//access port
+switchport mode access
+switchport access vlan 10 //pc traffic untagged in vlan 10 (remember the switch will tag if its necessary)
+switchport voice vlan 11 //will use cdp to tell to tell the phone to tag the phones traffic in vlan11
+
+show interface (interfacer) switchport/trunk
+
+------------------------------------------
+QOS
+
+class-map (name) //to applied to qos calculation´
+match protocol (https)
+match dscp ? //view the codepoints
+
+//config
+policy-map (name)(ex interface in out)
+class (class-map)
+set ip dscp (AF number)
+priority percent (percent)
+bandwidth percent (percent)
+
+show running-config | section policy-map
+
+//interface config
+service-policy output (policymap name)
+
+-----------------------------
+Port Security
+
+show interface (interface) switchport
+show interfaces status
+show port-security interface (interface)
+
+show errdisable revovery
+
+show port security 
+
+show mac-address-table secure
+
+//Interface config mode
+
+switchport port-security // enable
+shutdown 
+no shutdown // to reenable interface which were err disabled
+
+errdisable recovery cause psecure-violation 
+// enable the timer recovery of the interface
+errdisable recovery interval 180 // set the timer 
+
+switchport port-security vilation (mode) 
+//sets the vilation mode - whenever unauthorized mac send  s traffic
+switchport port-security aging time (minutes)
+// sets the timer a mac is discard
+switchport port-security aging type ..
+//sets absolute or inactivity
+switchport port-security aging static 
+//enable aged out static added mac adresses
+
+switchport port-security mac-adrress sticky
+//prevent dynamic mac adresses aged out 
+ 
+---------------------------------
+DHCP SNOOPING
+
+show ip dhcp snooping binding
+
+ip dhco snooping // enable snooping
+ip dhcp snooping vlan (vlan number) //configure it on the vlan
+errdisable recovery cause dhcp-rate-limit
+no ip dhcp snooping information option // this can occur problems without
+ip dhcp snooping trust // set the trusted ports
+ip dhcp snooping limit rate (packets per second) // set the limit if getting more it will be shutdown
+
+------------------------
+Dynamic ARP Inspection(DAI)
+
+show ip arp inspection
+show ip arp inspection interfaces
+
+ip arp inspection vlan (vlannumber)
+errdisable recovery cause arp-inspection
+
+ip arp inspection validate (all three or just one or two)
+ip arp inspection trust // trusted port
+ip arp inspection limit rate (packets) burst interval(seconds)
+
+arp access-list name
+permit ip host (ipaddress) mac host (macadress)
+ip arp inspection filter (arp-acl name) vlan (vlannumber)
+
+-----------------------------
+VRF - Virtual Routing Forwarding
+
+show ip vrf
+show ip route vrf (costumername)
+ping vrf (vrfname) (ipaddress)
+
+ip vrf (Customer)
+
+//interface config
+
+ip vrf forwarding (customer configured name)
+ip adress (address)(netmask) //already configured ip adresses will be remove  
+no shutdown
+
+-------------------------------------------
+// WLC Configuration
+
+//on Switch
+ip dhcp pool VLAN10
+network (networkaddress)(subnetmask)
+default-router (address)
+option 43 ip (ipadress) // to tell the client (like APS) what is the ip adress of the WLC to connect a CAPWAP tunnel
+
+//on WLC
+simple follow the conf introdcution
+
+
+
+

